@@ -9,4 +9,26 @@ sudo iptables -A INPUT -p udp -m udp --sport 9700 --dport 1025:65355 -j ACCEPT
 sudo iptables -A INPUT -p tcp -m tcp --sport 9700 --dport 1025:65355 -j ACCEPT
 sudo iptables -A INPUT -p udp -m udp` --sport 9760 --dport 1025:65355 -j ACCEPT
 
+#TukarMasa
+
+#my
+
+ln -fs /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime
+
 #squid3
+
+
+apt-get -y install squid3
+cp /etc/squid3/squid.conf /etc/squid3/squid.conf.orig
+wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/azmintr/pritunl/master/squid3.conf" 
+MYIP=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0' | grep -v '192.168'`;
+sed -i s/xxxxxxxxx/$MYIP/g /etc/squid3/squid.conf;
+service squid3 restart
+
+
+
+
+
+
+
+https://raw.githubusercontent.com/azmintr/pritunl/master/squid3.conf
